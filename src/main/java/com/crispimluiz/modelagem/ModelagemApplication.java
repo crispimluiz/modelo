@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.crispimluiz.modelagem.domain.Categoria;
 import com.crispimluiz.modelagem.domain.Cidade;
+import com.crispimluiz.modelagem.domain.Cliente;
+import com.crispimluiz.modelagem.domain.Endereco;
 import com.crispimluiz.modelagem.domain.Estado;
 import com.crispimluiz.modelagem.domain.Produto;
+import com.crispimluiz.modelagem.domain.enums.TipoCliente;
 import com.crispimluiz.modelagem.repositories.CategoriaRepository;
 import com.crispimluiz.modelagem.repositories.CidadeRepository;
+import com.crispimluiz.modelagem.repositories.ClienteRepository;
+import com.crispimluiz.modelagem.repositories.EnderecoRepository;
 import com.crispimluiz.modelagem.repositories.EstadoRepository;
 import com.crispimluiz.modelagem.repositories.ProdutoRepository;
 
@@ -27,6 +32,10 @@ public class ModelagemApplication implements CommandLineRunner{
 	private EstadoRepository estadoRepository;
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	
 	public static void main(String[] args) {
@@ -66,5 +75,17 @@ public class ModelagemApplication implements CommandLineRunner{
 		
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+		
+		Cliente cli1 = new Cliente(null, "Maria Aparecida", "84311383484", "maria@gmail.com",TipoCliente.PESSOAFISICA);
+		
+		cli1.getTelefones().addAll(Arrays.asList("3265785496","52489634"));
+		
+		Endereco e1 = new Endereco(null, "Rua das Emboabas", "55b", "Ap 310", "Jardim", "38447587", cli1, c1);
+		Endereco e2 = new Endereco(null, "Rua da Mata", "10A", "Ap 10", "Jardim das Acasias", "38447507", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
 	}
 }
