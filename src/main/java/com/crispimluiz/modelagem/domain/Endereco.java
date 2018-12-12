@@ -26,7 +26,7 @@ public class Endereco implements Serializable{
 	
 	@JsonBackReference
 	@ManyToOne
-	@JoinColumn(name="cliente_id")
+	@JoinColumn(name="cliente_id")//Varios endereços um cliente
 	private Cliente cliente;
 	
 	//Endereço conhece a cidade, mas a cidade não conhece o endereço

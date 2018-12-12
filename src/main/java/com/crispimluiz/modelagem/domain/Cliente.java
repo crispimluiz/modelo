@@ -14,33 +14,37 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-
 import com.crispimluiz.modelagem.domain.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Cliente implements Serializable{
+public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String cpfOuCnpj;
 	private String email;
-	private Integer tipo;/*private TipoCliente tipo;
-	Altera para Integer para gravar o numero no final*/
-	
-	@JsonManagedReference
-	@OneToMany(mappedBy="cliente")
+	private Integer tipo;
+/*
+private TipoCliente(ENUM) tipo; Altera para Integer para gravar o numero no final
+*/
+
+	@JsonManagedReference//Para não ficar indo e voltado informação sem parar
+	@OneToMany(mappedBy = "cliente")//Varios endereços um cliente
 	private List<Endereco> enderecos = new ArrayList<>();
-	
-	@ElementCollection
-	@CollectionTable(name="TELEFONE")
+
+	@ElementCollection//Cria uma tabela telefone
+	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
+	@OneToMany(mappedBy="cliente")//Mapeada em cliente
+	private List<Pedido> pedidos = new ArrayList<>();
+
 	public Cliente() {
-		
+
 	}
 
 	public Cliente(Integer id, String nome, String cpfOuCnpj, String email, TipoCliente tipo) {
@@ -49,7 +53,7 @@ public class Cliente implements Serializable{
 		this.nome = nome;
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.email = email;
-		this.tipo = tipo.getCod();//Add get para manter o tipo-tipo
+		this.tipo = tipo.getCod();// Add get para manter o tipo-tipo
 	}
 
 	public Integer getId() {
@@ -86,11 +90,11 @@ public class Cliente implements Serializable{
 
 	public TipoCliente getTipo() {
 		return TipoCliente.toEnum(tipo);
-		//esse to enum vem da classe enum tipo
+		// esse to enum vem da classe enum tipo
 	}
 
 	public void setTipo(TipoCliente tipo) {
-		this.tipo = tipo.getCod();//add .get também
+		this.tipo = tipo.getCod();// add .get também
 	}
 
 	public List<Endereco> getEnderecos() {
@@ -107,6 +111,14 @@ public class Cliente implements Serializable{
 
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	@Override
@@ -133,5 +145,5 @@ public class Cliente implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 }
