@@ -15,8 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.crispimluiz.modelagem.domain.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Cliente implements Serializable {
@@ -33,7 +32,6 @@ public class Cliente implements Serializable {
 private TipoCliente(ENUM) tipo; Altera para Integer para gravar o numero no final
 */
 
-	@JsonManagedReference//Para não ficar indo e voltado informação sem parar
 	@OneToMany(mappedBy = "cliente")//Varios endereços um cliente
 	private List<Endereco> enderecos = new ArrayList<>();
 
@@ -41,7 +39,7 @@ private TipoCliente(ENUM) tipo; Altera para Integer para gravar o numero no fina
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
-	@JsonBackReference//Pedidos do cliente ñ seram serializados
+	@JsonIgnore//Pedidos do cliente ñ seram serializados
 	@OneToMany(mappedBy="cliente")//Mapeada em cliente
 	private List<Pedido> pedidos = new ArrayList<>();
 
