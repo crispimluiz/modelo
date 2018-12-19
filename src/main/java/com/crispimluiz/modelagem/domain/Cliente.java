@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.crispimluiz.modelagem.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -40,6 +41,7 @@ private TipoCliente(ENUM) tipo; Altera para Integer para gravar o numero no fina
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
+	@JsonBackReference//Pedidos do cliente ñ seram serializados
 	@OneToMany(mappedBy="cliente")//Mapeada em cliente
 	private List<Pedido> pedidos = new ArrayList<>();
 

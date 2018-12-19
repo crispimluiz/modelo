@@ -11,6 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.crispimluiz.modelagem.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
@@ -22,6 +23,7 @@ public abstract class Pagamento  implements Serializable{
 	private Integer estado;
 	//Buscar o número do ENUM
 	
+	@JsonBackReference//Não será serializado
 	@OneToOne
 	@JoinColumn(name="pedido_id")
 	@MapsId//traz o generation para pagamentos
