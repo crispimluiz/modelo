@@ -24,6 +24,10 @@ public class Categoria implements Serializable{
 	@ManyToMany(mappedBy="categorias")
 	private List<Produto> produtos = new ArrayList<>();
 	
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -51,13 +55,6 @@ public class Categoria implements Serializable{
 	public Categoria() {
 		
 	}
-
-	
-
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
-
 
 
 	public void setProdutos(List<Produto> produtos) {
