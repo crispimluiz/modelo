@@ -3,10 +3,12 @@ package com.crispimluiz.modelagem.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.crispimluiz.modelagem.domain.Categoria;
 import com.crispimluiz.modelagem.repositories.CategoriaRepository;
+import com.crispimluiz.modelagem.services.Exception.DataIntegrityException;
 import com.crispimluiz.modelagem.services.Exception.ObjectNotFoundException;
 
 @Service
@@ -30,5 +32,14 @@ public class CategoriaService {
 		find(obj.getId());
 		return repo.save(obj);
 	}
-
+	
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+		}
+	}
 }
