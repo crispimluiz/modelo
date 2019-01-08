@@ -3,6 +3,8 @@ package com.crispimluiz.modelagem.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.crispimluiz.modelagem.domain.Categoria;
+import com.crispimluiz.modelagem.dto.CategoriaDTO;
 import com.crispimluiz.modelagem.repositories.CategoriaRepository;
 import com.crispimluiz.modelagem.services.Exception.DataIntegrityException;
 import com.crispimluiz.modelagem.services.Exception.ObjectNotFoundException;
@@ -54,5 +57,10 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	//Post
+	public Categoria fromDTO(@Valid CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 }
