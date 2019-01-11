@@ -53,7 +53,7 @@ private TipoCliente(ENUM) tipo; Altera para Integer para gravar o numero no fina
 		this.nome = nome;
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.email = email;
-		this.tipo = tipo.getCod();// Add get para manter o tipo-tipo
+		this.tipo = (tipo == null) ? null : tipo.getCod();// Add get para manter o tipo-tipo
 	}
 
 	public Integer getId() {

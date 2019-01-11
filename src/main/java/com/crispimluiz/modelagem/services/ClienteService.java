@@ -1,12 +1,20 @@
 package com.crispimluiz.modelagem.services;
 
+
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.crispimluiz.modelagem.domain.Cliente;
+import com.crispimluiz.modelagem.dto.ClienteDTO;
 import com.crispimluiz.modelagem.repositories.ClienteRepository;
+import com.crispimluiz.modelagem.services.Exception.DataIntegrityException;
 import com.crispimluiz.modelagem.services.Exception.ObjectNotFoundException;
 
 @Service
@@ -21,4 +29,38 @@ public class ClienteService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 
+	public Cliente update(Cliente obj) {
+		Cliente newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+	
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir");
+		}
+	}
+	
+	public List <Cliente> findAll(){
+		return repo.findAll();
+	}
+	//Paginação para que volte uma quantidade certa do BD, senão voltaria todos os valores
+	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findAll(pageRequest);
+	}
+	
+	//Post
+	public Cliente fromDTO(ClienteDTO objDto) {
+		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
+	}
+	
+	private void updateData(Cliente newObj, Cliente obj) {
+		newObj.setNome(obj.getNome());
+		newObj.setEmail(obj.getEmail());
+	}
 }
