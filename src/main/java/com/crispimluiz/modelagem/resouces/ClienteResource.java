@@ -1,5 +1,6 @@
 package com.crispimluiz.modelagem.resouces;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.crispimluiz.modelagem.domain.Cliente;
 import com.crispimluiz.modelagem.dto.ClienteDTO;
+import com.crispimluiz.modelagem.dto.ClienteNewDto;
 import com.crispimluiz.modelagem.services.ClienteService;
 
 @RestController
@@ -62,5 +65,13 @@ public class ClienteResource {
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<Void> inserir(@Valid @RequestBody ClienteNewDto objDto){
+		Cliente obj = service.fromDTO(objDto);
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
+				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 	}
 }
