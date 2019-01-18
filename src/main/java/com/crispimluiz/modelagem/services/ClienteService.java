@@ -18,7 +18,7 @@ import com.crispimluiz.modelagem.domain.Cliente;
 import com.crispimluiz.modelagem.domain.Endereco;
 import com.crispimluiz.modelagem.domain.enums.TipoCliente;
 import com.crispimluiz.modelagem.dto.ClienteDTO;
-import com.crispimluiz.modelagem.dto.ClienteNewDto;
+import com.crispimluiz.modelagem.dto.ClienteNewDTO;
 import com.crispimluiz.modelagem.repositories.ClienteRepository;
 import com.crispimluiz.modelagem.repositories.EnderecoRepository;
 import com.crispimluiz.modelagem.services.Exception.DataIntegrityException;
@@ -78,7 +78,7 @@ public class ClienteService {
 	}
 	
 	//Post Cliente para salvar Endereço e telefone juntos
-		public Cliente fromDTO(ClienteNewDto objDto) {
+		public Cliente fromDTO(ClienteNewDTO objDto) {
 			Cliente cli = new Cliente(null, objDto.getNome(), objDto.getCpfOuCnpj(), objDto.getEmail(), 
 					TipoCliente.toEnum(objDto.getTipo()));
 			Cidade cid = new Cidade(objDto.getCidadeId(), null, null);

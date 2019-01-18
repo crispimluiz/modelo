@@ -2,28 +2,55 @@ package com.crispimluiz.modelagem.dto;
 
 import java.io.Serializable;
 
-public class ClienteNewDto implements Serializable{
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.crispimluiz.modelagem.services.validation.ClienteInsert;
+
+@ClienteInsert
+public class ClienteNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
+	
 	/*Esse dto a priori e para fazer o POST*/
 	//Cliente
+	@NotEmpty(message="Preechimento Obrigatório")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 Caracteres")
 	private String nome;
+	
+	@NotEmpty(message="Preenchimento Obrigatorio")
 	private String cpfOuCnpj;
+	
+	@NotEmpty(message="Preenchimento Obrigatorio")
+	@Email(message="Email Inválido")
 	private String email;
 	private Integer tipo;
+	
 	//Endereço
+	@NotEmpty(message="Preenchimento Obrigatorio")
 	private String logradouro;
+	
+	@NotEmpty(message="Preenchimento Obrigatorio")
 	private String numero;
+	
 	private String complemento;
 	private String bairro;
+	
+	@NotEmpty(message="Preenchimento Obrigatorio")
 	private String cep;
+	
 	//Telefones
+	@NotEmpty(message="Preenchimento Obrigatorio")
 	private String telefone1;
+	
 	private String telefone2;
 	private String telefone3;
+	
 	//Cidade
 	private Integer cidadeId;
 	
-	public ClienteNewDto() {
+	public ClienteNewDTO() {
 	}
 
 	public String getNome() {
