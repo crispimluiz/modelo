@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class ClienteNewDto implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
+	/*Esse dto a priori e para fazer o POST*/
 	//Cliente
 	private String nome;
 	private String cpfOuCnpj;
 	private String email;
 	private Integer tipo;
 	//Endereço
-	private String lagradouro;
+	private String logradouro;
 	private String numero;
 	private String complemento;
 	private String bairro;
@@ -58,12 +58,12 @@ public class ClienteNewDto implements Serializable{
 		this.tipo = tipo;
 	}
 
-	public String getLagradouro() {
-		return lagradouro;
+	public String getLogradouro() {
+		return logradouro;
 	}
 
-	public void setLagradouro(String lagradouro) {
-		this.lagradouro = lagradouro;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
 	public String getNumero() {

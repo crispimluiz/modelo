@@ -59,7 +59,7 @@ public class ClienteService {
 			repo.deleteById(id);
 		}
 		catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir");
+			throw new DataIntegrityException("Não é possível excluir, tem pedidos relacionados");
 		}
 	}
 	
@@ -82,7 +82,7 @@ public class ClienteService {
 			Cliente cli = new Cliente(null, objDto.getNome(), objDto.getCpfOuCnpj(), objDto.getEmail(), 
 					TipoCliente.toEnum(objDto.getTipo()));
 			Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
-			Endereco end = new Endereco(null, objDto.getLagradouro(), objDto.getNumero(), 
+			Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), 
 					objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), cli, cid);
 			
 			//Cliente Conhece Endereço
