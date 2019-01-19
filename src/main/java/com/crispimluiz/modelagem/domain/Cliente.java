@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,10 @@ public class Cliente implements Serializable {
 	private Integer id;
 	private String nome;
 	private String cpfOuCnpj;
+	
+	//O banco de dados não deixa repetir os dados
+	//Tem que mexer no cliente repository
+	@Column(unique=true	)
 	private String email;
 	private Integer tipo;
 /*
