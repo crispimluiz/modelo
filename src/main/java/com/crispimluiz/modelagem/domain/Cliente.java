@@ -31,7 +31,7 @@ public class Cliente implements Serializable {
 	
 	//O banco de dados não deixa repetir os dados
 	//Tem que mexer no cliente repository
-	@Column(unique=true	)
+	@Column(unique=true)
 	private String email;
 	private Integer tipo;
 /*
