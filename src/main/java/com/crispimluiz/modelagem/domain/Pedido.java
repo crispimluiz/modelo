@@ -47,12 +47,12 @@ public class Pedido  implements Serializable{
 	public Pedido(){
 	}
 
-	public Pedido(Integer id, Date instante, Cliente cliente, Endereco endetecoDeEntrega) {
+	public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
 		super();
 		this.id = id;
 		this.instante = instante;
 		this.cliente = cliente;
-		this.enderecoDeEntrega = endetecoDeEntrega;
+		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 	
 	//faz a soma do pedido, busca a somatoria do item pedido e faz a soma total
@@ -96,12 +96,12 @@ public class Pedido  implements Serializable{
 		this.cliente = cliente;
 	}
 
-	public Endereco getEndetecoDeEntrega() {
+	public Endereco getEnderecoDeEntrega() {
 		return enderecoDeEntrega;
 	}
 
-	public void setEndetecoDeEntrega(Endereco endetecoDeEntrega) {
-		this.enderecoDeEntrega = endetecoDeEntrega;
+	public void setEnderecoDeEntrega(Endereco enderecoDeEntrega) {
+		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 	
 	public Set<ItemPedido> getItens() {

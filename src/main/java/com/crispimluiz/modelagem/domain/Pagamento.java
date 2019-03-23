@@ -12,10 +12,14 @@ import javax.persistence.OneToOne;
 
 import com.crispimluiz.modelagem.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class Pagamento  implements Serializable{
+	//Essa anotação (Json) é para indicar as classe tipo pagamento se será cartão ou boleto
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Id//generation gerado na class pedido
