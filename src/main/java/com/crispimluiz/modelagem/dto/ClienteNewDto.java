@@ -1,5 +1,4 @@
 package com.crispimluiz.modelagem.dto;
-
 import java.io.Serializable;
 
 import javax.validation.constraints.Email;
@@ -9,45 +8,47 @@ import org.hibernate.validator.constraints.Length;
 
 import com.crispimluiz.modelagem.services.validation.ClienteInsert;
 
+
 @ClienteInsert
-public class ClienteNewDTO implements Serializable{
+public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	/*Esse dto a priori e para fazer o POST*/
-	//Cliente
-	@NotEmpty(message="Preechimento Obrigatório")
-	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 Caracteres")
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
-	
-	@NotEmpty(message="Preenchimento Obrigatorio")
-	private String cpfOuCnpj;
-	
-	@NotEmpty(message="Preenchimento Obrigatorio")
-	@Email(message="Email Inválido")
+
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Email(message="Email inválido")
 	private String email;
+
+	@NotEmpty(message="Preenchimento obrigatório")
+	private String cpfOuCnpj;
+
 	private Integer tipo;
 	
-	//Endereço
-	@NotEmpty(message="Preenchimento Obrigatorio")
+	@NotEmpty(message="Preenchimento obrigatório")
+	private String senha;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String logradouro;
-	
-	@NotEmpty(message="Preenchimento Obrigatorio")
+
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String numero;
-	
+
 	private String complemento;
+
 	private String bairro;
-	
-	@NotEmpty(message="Preenchimento Obrigatorio")
+
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String cep;
 	
-	//Telefones
-	@NotEmpty(message="Preenchimento Obrigatorio")
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String telefone1;
-	
+
 	private String telefone2;
-	private String telefone3;
 	
-	//Cidade
+	private String telefone3;
+
 	private Integer cidadeId;
 	
 	public ClienteNewDTO() {
@@ -61,20 +62,20 @@ public class ClienteNewDTO implements Serializable{
 		this.nome = nome;
 	}
 
-	public String getCpfOuCnpj() {
-		return cpfOuCnpj;
-	}
-
-	public void setCpfOuCnpj(String cpfOuCnpj) {
-		this.cpfOuCnpj = cpfOuCnpj;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getCpfOuCnpj() {
+		return cpfOuCnpj;
+	}
+
+	public void setCpfOuCnpj(String cpfOuCnpj) {
+		this.cpfOuCnpj = cpfOuCnpj;
 	}
 
 	public Integer getTipo() {
@@ -157,6 +158,11 @@ public class ClienteNewDTO implements Serializable{
 		this.cidadeId = cidadeId;
 	}
 	
+	public String getSenha() {
+		return senha;
+	}
 	
-	
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 }
