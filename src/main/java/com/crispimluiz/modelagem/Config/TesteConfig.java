@@ -8,9 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.crispimluiz.modelagem.services.DBService;
+import com.crispimluiz.modelagem.services.EmailService;
+import com.crispimluiz.modelagem.services.MockEmailService;
 
 @Configuration
-@Profile("teste")
+@Profile("test")
 public class TesteConfig {
 	/* Essa classe é para configurar o application.properties
 	 *Nela eu Criei a classe DBService onde levei a teste banco
@@ -25,5 +27,10 @@ public class TesteConfig {
 	public boolean instantiateDatabase() throws ParseException {
 		dbservice.instantiateTesteDataBase();
 		return true;
+	}
+	
+	@Bean
+	public EmailService emailService() {
+		return new MockEmailService();
 	}
 }
