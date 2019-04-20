@@ -34,6 +34,9 @@ public class Cliente implements Serializable {
 	@Column(unique=true)
 	private String email;
 	private Integer tipo;
+	
+	@JsonIgnore
+	private String senha;
 /*
 private TipoCliente(ENUM) tipo; Altera para Integer para gravar o numero no final
 */
@@ -53,13 +56,14 @@ private TipoCliente(ENUM) tipo; Altera para Integer para gravar o numero no fina
 
 	}
 
-	public Cliente(Integer id, String nome, String cpfOuCnpj, String email, TipoCliente tipo) {
+	public Cliente(Integer id, String nome, String cpfOuCnpj, String email, TipoCliente tipo, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.email = email;
 		this.tipo = (tipo == null) ? null : tipo.getCod();// Add get para manter o tipo-tipo
+		this.senha = senha;
 	}
 
 	public Integer getId() {
@@ -101,6 +105,14 @@ private TipoCliente(ENUM) tipo; Altera para Integer para gravar o numero no fina
 
 	public void setTipo(TipoCliente tipo) {
 		this.tipo = tipo.getCod();// add .get também
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public List<Endereco> getEnderecos() {
@@ -151,5 +163,4 @@ private TipoCliente(ENUM) tipo; Altera para Integer para gravar o numero no fina
 			return false;
 		return true;
 	}
-
 }
