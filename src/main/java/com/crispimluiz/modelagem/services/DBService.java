@@ -20,6 +20,7 @@ import com.crispimluiz.modelagem.domain.PagamentoComCartao;
 import com.crispimluiz.modelagem.domain.Pedido;
 import com.crispimluiz.modelagem.domain.Produto;
 import com.crispimluiz.modelagem.domain.enums.EstadoPagamento;
+import com.crispimluiz.modelagem.domain.enums.Perfil;
 import com.crispimluiz.modelagem.domain.enums.TipoCliente;
 import com.crispimluiz.modelagem.repositories.CategoriaRepository;
 import com.crispimluiz.modelagem.repositories.CidadeRepository;
@@ -122,15 +123,22 @@ public class DBService {
 		
 		Cliente cli1 = new Cliente(null, "Maria Aparecida", "84311383484", "crispimluiz@live.com",TipoCliente.PESSOAFISICA, pe.encode("123"));
 		
+		Cliente cli2 = new Cliente(null, "Alice Pereia", "70332349020", "crluiz@gmail.com",TipoCliente.PESSOAFISICA, pe.encode("321"));
+		cli2.addPerfil(Perfil.ADMIN);
+		
 		cli1.getTelefones().addAll(Arrays.asList("3265785496","52489634"));
+		cli2.getTelefones().addAll(Arrays.asList("3265700000","52480000"));
+		
 		
 		Endereco e1 = new Endereco(null, "Rua das Emboabas", "55b", "Ap 310", "Jardim", "38447587", cli1, c1);
 		Endereco e2 = new Endereco(null, "Rua da Mata", "10A", "Ap 10", "Jardim das Acasias", "38447507", cli1, c2);
+		Endereco e3 = new Endereco(null, "Rua Alameda Nasciute", "234", null, "Centro", "34555098", cli2, c3);
 		
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e1, e2));
 		
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyy hh:mm");
 		
