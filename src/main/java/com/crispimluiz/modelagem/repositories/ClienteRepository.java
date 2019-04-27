@@ -13,5 +13,5 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 	//Deixa mais rápida e diminiu o lokin
 	@Transactional(readOnly=true)
 	Cliente findByEmail(String email);
-	//findByEmail - Busca se tem e-mail iguais no banco de dados.
+	//findByEmail - Busca e-mail.
 }

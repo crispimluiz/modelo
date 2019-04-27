@@ -17,11 +17,14 @@ import org.springframework.stereotype.Service;
 import com.crispimluiz.modelagem.domain.Cidade;
 import com.crispimluiz.modelagem.domain.Cliente;
 import com.crispimluiz.modelagem.domain.Endereco;
+import com.crispimluiz.modelagem.domain.enums.Perfil;
 import com.crispimluiz.modelagem.domain.enums.TipoCliente;
 import com.crispimluiz.modelagem.dto.ClienteDTO;
 import com.crispimluiz.modelagem.dto.ClienteNewDTO;
 import com.crispimluiz.modelagem.repositories.ClienteRepository;
 import com.crispimluiz.modelagem.repositories.EnderecoRepository;
+import com.crispimluiz.modelagem.security.UserSS;
+import com.crispimluiz.modelagem.services.Exception.AuthorizationException;
 import com.crispimluiz.modelagem.services.Exception.DataIntegrityException;
 import com.crispimluiz.modelagem.services.Exception.ObjectNotFoundException;
 
@@ -32,12 +35,18 @@ public class ClienteService {
 	private BCryptPasswordEncoder pe;
 	
 	@Autowired
-	private ClienteRepository repo;
+	private static ClienteRepository repo;
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 	
-	public Cliente find(Integer id) {
+	public static Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado!!!");
+		}
+		
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));

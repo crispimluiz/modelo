@@ -29,6 +29,7 @@ public class ClienteResource {
 	@Autowired
 	private ClienteService service;
 	
+	@SuppressWarnings("static-access")
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		Cliente obj = service.find(id);		
