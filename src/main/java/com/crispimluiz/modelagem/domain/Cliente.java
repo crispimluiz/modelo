@@ -59,7 +59,7 @@ private TipoCliente(ENUM) tipo; Altera para Integer para gravar o numero no fina
 	@JsonIgnore//Pedidos do cliente ñ seram serializados
 	@OneToMany(mappedBy="cliente")//Mapeada em cliente
 	private List<Pedido> pedidos = new ArrayList<>();
-
+	
 	public Cliente() {
 		addPerfil(Perfil.CLIENTE);
 	}
@@ -180,4 +180,5 @@ private TipoCliente(ENUM) tipo; Altera para Integer para gravar o numero no fina
 			return false;
 		return true;
 	}
+
 }
